@@ -26,8 +26,14 @@ export class App extends Component {
     };
     
     handleFilterChange = (event) => {
-    this.setState({ filter: event.target.value });
-  };
+        this.setState({ filter: event.target.value });
+    }
+    handleDeleteContact = (id) => {
+            this.setState((prevState) => ({
+                contacts: prevState.contacts.filter((contact) => contact.id !== id),
+            }));
+        };
+    
 
     render() {
     const { contacts, filter } = this.state;
@@ -40,7 +46,7 @@ export class App extends Component {
         <ContactForm onAddContact={this.handleAddContact} contacts={contacts} />
         <h2>Contacts</h2>
         <Filter value={filter} onChange={this.handleFilterChange} />
-        <ContactList contacts={filteredContacts} />
+        <ContactList contacts={filteredContacts} onDeleteContact={this.handleDeleteContact}/>
       </div>
     );
   }

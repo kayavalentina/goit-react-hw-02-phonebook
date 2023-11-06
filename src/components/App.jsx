@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 
 
 import  phonebook  from './data/phonebook.json';
-import  AddContact  from './AddContact/AddContact';
+import  ContactForm  from './ContactForm/ContactForm';
 import  ContactList  from './ContactList/ContactList';
 
 export class App extends Component {
@@ -28,7 +28,7 @@ export class App extends Component {
     return (
       <div>
         <h1>Phonebook</h1>
-        <AddContact onAddContact={this.handleAddContact} />
+        <ContactForm onAddContact={this.handleAddContact} />
         <ContactList contacts={this.state.contacts} />
       </div>
     );

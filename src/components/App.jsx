@@ -1,18 +1,16 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
-//import Notiflix from 'notiflix';
-
 
 import  phonebook  from './data/phonebook.json';
 import  ContactForm  from './ContactForm/ContactForm';
-import  ContactList  from './ContactList/ContactList';
+import ContactList from './ContactList/ContactList';
+import Filter from './Filter/Filter';
 
 export class App extends Component {
   state = {
     contacts: [...phonebook],
       filter: '',
-      name: '',
-      number: '',
+    
   };
 
   handleAddContact = (name, number) => {
@@ -38,24 +36,11 @@ export class App extends Component {
     );
     return (
       <div>
-        <h1>Phonebook</h1>
-        <ContactForm onAddContact={this.handleAddContact} />
-            <ContactList contacts={this.state.contacts} />
-            <h2>Contacts</h2>
-        <input
-          type="text"
-          placeholder="Search contacts"
-          value={filter}
-          onChange={this.handleFilterChange}
-        />
-
-        <ul>
-          {filteredContacts.map((contact) => (
-            <li key={contact.id}>
-              {contact.name}: {contact.number}
-            </li>
-          ))}
-        </ul>
+         <h1>Phonebook</h1>
+        <ContactForm onAddContact={this.handleAddContact} contacts={contacts} />
+        <h2>Contacts</h2>
+        <Filter value={filter} onChange={this.handleFilterChange} />
+        <ContactList contacts={filteredContacts} />
       </div>
     );
   }

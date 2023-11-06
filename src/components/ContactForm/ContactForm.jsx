@@ -1,7 +1,8 @@
-import React  from 'react';
+import React from 'react';
 import * as Yup from 'yup';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-
+import PropTypes from 'prop-types';
+import Notiflix from 'notiflix';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -15,48 +16,45 @@ const validationSchema = Yup.object().shape({
     .required('Phone number is required'),
 });
 
-const ContactForm = ({ onAddContact }) => {
+const ContactForm = ({ onAddContact, contacts }) => {
   const initialValues = {
     name: '',
     number: '',
   };
 
   const onSubmit = (values, { resetForm }) => {
+  const { name } = values;
+  if (contacts.some((contact) => contact.name.toLowerCase() === name.toLowerCase())) {
+    Notiflix.Notify.failure(`${name} is already in contacts!`);
+  } else {
     onAddContact(values.name, values.number);
     resetForm();
-  };
+  }
+};
+
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={onSubmit}
-    >
+    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
       <Form>
         <div>
           <label htmlFor="name">Name</label>
-          <Field
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Name"
-          />
+          <Field type="text" name="name" id="name" placeholder="Name" />
           <ErrorMessage name="name" component="div" className="error-message" />
         </div>
         <div>
           <label htmlFor="number">Phone Number</label>
-          <Field
-            type="text"
-            name="number"
-            id="number"
-            placeholder="Phone Number"
-          />
+          <Field type="text" name="number" id="number" placeholder="Phone Number" />
           <ErrorMessage name="number" component="div" className="error-message" />
         </div>
         <button type="submit">Add contact</button>
       </Form>
     </Formik>
   );
+};
+
+ContactForm.propTypes = {
+  onAddContact: PropTypes.func.isRequired,
+  contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ContactForm;

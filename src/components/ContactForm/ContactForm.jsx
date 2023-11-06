@@ -1,8 +1,10 @@
 import React from 'react';
 import * as Yup from 'yup';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik,  Form, ErrorMessage } from 'formik';
 import PropTypes from 'prop-types';
 import Notiflix from 'notiflix';
+
+import {FormContainer, Label ,Input, ErrorMessageContainer, SubmitButton } from './ContactForm.styled';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -33,22 +35,24 @@ const ContactForm = ({ onAddContact, contacts }) => {
 };
 
 
-  return (
-    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
-      <Form>
-        <div>
-          <label htmlFor="name">Name</label>
-          <Field type="text" name="name" id="name" placeholder="Name" />
-          <ErrorMessage name="name" component="div" className="error-message" />
-        </div>
-        <div>
-          <label htmlFor="number">Phone Number</label>
-          <Field type="text" name="number" id="number" placeholder="Phone Number" />
-          <ErrorMessage name="number" component="div" className="error-message" />
-        </div>
-        <button type="submit">Add contact</button>
-      </Form>
-    </Formik>
+    return (
+        <FormContainer>
+      <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
+        <Form>
+          <div>
+            <Label htmlFor="name">Name</Label>
+            <Input type="text" name="name" id="name" placeholder="Name" />
+            <ErrorMessage name="name" component={ErrorMessageContainer} />
+          </div>
+          <div>
+            <Label htmlFor="number">Phone Number</Label>
+            <Input type="text" name="number" id="number" placeholder="Phone Number" />
+            <ErrorMessage name="number" component={ErrorMessageContainer} />
+          </div>
+          <SubmitButton type="submit">Add contact</SubmitButton>
+        </Form>
+      </Formik>
+    </FormContainer>
   );
 };
 

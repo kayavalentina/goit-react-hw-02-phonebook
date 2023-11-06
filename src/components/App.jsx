@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 
+import { AppContainer, Title, FormContainer } from './App.styled';
 import  phonebook  from './data/phonebook.json';
 import  ContactForm  from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
+
+
 
 export class App extends Component {
   state = {
@@ -41,13 +44,15 @@ export class App extends Component {
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );
     return (
-      <div>
-         <h1>Phonebook</h1>
-        <ContactForm onAddContact={this.handleAddContact} contacts={contacts} />
-        <h2>Contacts</h2>
+      <AppContainer>
+            <Title>Phonebook</Title>
+            <FormContainer>
+                <ContactForm onAddContact={this.handleAddContact} contacts={contacts} />
+            </FormContainer>
+          <Title>Phonebook</Title>
         <Filter value={filter} onChange={this.handleFilterChange} />
         <ContactList contacts={filteredContacts} onDeleteContact={this.handleDeleteContact}/>
-      </div>
+      </AppContainer>
     );
   }
 }

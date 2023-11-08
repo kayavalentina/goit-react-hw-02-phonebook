@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import {  Field } from 'formik';
+import { Field } from 'formik';
 
 export const FormContainer = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: #b1a0db;
   padding: 20px;
   border-radius: 10px;
@@ -13,7 +13,7 @@ justify-content: center;
 
 export const Label = styled.label`
   font-size: 12px;
-  color:  black;
+  color: black;
 `;
 
 export const Input = styled(Field)`

@@ -1,10 +1,16 @@
 import React from 'react';
 import * as Yup from 'yup';
-import { Formik,  Form, ErrorMessage } from 'formik';
+import { Formik, Form, ErrorMessage } from 'formik';
 import PropTypes from 'prop-types';
 import Notiflix from 'notiflix';
 
-import {FormContainer, Label ,Input, ErrorMessageContainer, SubmitButton } from './ContactForm.styled';
+import {
+  FormContainer,
+  Label,
+  Input,
+  ErrorMessageContainer,
+  SubmitButton,
+} from './ContactForm.styled';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -25,19 +31,26 @@ const ContactForm = ({ onAddContact, contacts }) => {
   };
 
   const onSubmit = (values, { resetForm }) => {
-  const { name } = values;
-  if (contacts.some((contact) => contact.name.toLowerCase() === name.toLowerCase())) {
-    Notiflix.Notify.failure(`${name} is already in contacts!`);
-  } else {
-    onAddContact(values.name, values.number);
-    resetForm();
-  }
-};
+    const { name } = values;
+    if (
+      contacts.some(
+        contact => contact.name.toLowerCase() === name.toLowerCase()
+      )
+    ) {
+      Notiflix.Notify.failure(`${name} is already in contacts!`);
+    } else {
+      onAddContact(values.name, values.number);
+      resetForm();
+    }
+  };
 
-
-    return (
-        <FormContainer>
-      <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
+  return (
+    <FormContainer>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
+      >
         <Form>
           <div>
             <Label htmlFor="name">Name</Label>
@@ -46,7 +59,12 @@ const ContactForm = ({ onAddContact, contacts }) => {
           </div>
           <div>
             <Label htmlFor="number">Phone Number</Label>
-            <Input type="text" name="number" id="number" placeholder="Phone Number" />
+            <Input
+              type="text"
+              name="number"
+              id="number"
+              placeholder="Phone Number"
+            />
             <ErrorMessage name="number" component={ErrorMessageContainer} />
           </div>
           <SubmitButton type="submit">Add contact</SubmitButton>

@@ -10,7 +10,7 @@ export const ListItem = styled.li`
   display: flex;
   align-items: center;
   margin: 10px 0;
-  gap : 10px ;
+  gap: 10px;
 `;
 
 export const ContactInfo = styled.div`
@@ -19,8 +19,8 @@ export const ContactInfo = styled.div`
 
 export const Name = styled.p`
   font-size: 18px;
- font-weight: 500;
- margin: 0;
+  font-weight: 500;
+  margin: 0;
 `;
 
 export const PhoneNumber = styled.p`
